@@ -10,9 +10,6 @@
      '''
 
 
-from numpy import delete
-
-
 class Student():
     def __init__(self, student_ID, name, age, grade):
         self.student_ID = student_ID
