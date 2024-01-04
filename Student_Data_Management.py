@@ -29,7 +29,6 @@ def add_details(student_list, student_id, name, age, grade):
 
 
 # Viewing all Students.
-
 def view_details(student):
     if student == []:
         print(" No Data to Show... ")
@@ -40,49 +39,65 @@ def view_details(student):
 
 
 # Searching Student.
-
-def search_detail(student,student_id):
-    for stud in student:
+def search_detail(student_list,student_id):
+    for stud in student_list:
         if stud.student_ID == student_id:
             print(stud)
+            return " ID found."
     return " ID not found! "
     
 
 # Update Student Details.
-
-def update_detail(student, student_id, name = None, age = None, grade = None):
-    for stud in student:
+def update_detail(student_list, student_id, name = None, age = None, grade = None):
+    for stud in student_list:
         if stud.student_ID == student_id:
             print("Before Updated: \n", stud)
-            if name != None:
+            if name is not None:
                 stud.name = name
-            if age != None:
+            if age is not None:
                 stud.age = age
-            if grade != None:
+            if grade is not None:
                 stud.grade = grade
-            print(f" \nAfter Updated: \nStudent_ID: {student_id}, Name: {name}, Age: {age}, Grade: {grade} ")
-    return " \nUpdated Successfully. "
+            return (f"\nAfter Updated: \nStudent_ID: {student_id}, Name: {name}, Age: {age}, Grade: {grade} ")
+        return "\nUpdated Successfully. "
+    return "\nID not found! "
 
 
 # Delete Student.
-        
 def del_detail(student, student_id):
     for stud in student:
         if stud.student_ID == student_id:
-            print(f'{stud} \n Deleted Successfully. ')
+            print(f'{stud} \nDeleted Successfully. ')
             return student.remove(stud)
         print (f" Student ID: {student_id} not found!")
 
-# Main Body.
         
+# Validating Age...
+def valid_input(message):
+    while True:
+        try:
+            Input = int(input(message))
+            if Input > 0:
+                return Input
+        except ValueError:
+            print("Invalid input. Please enter Correct Age 🗓️ ")
+    
+# Taking Inputs..
+def take_input():
+    student_id = valid_input("Enter ID: ")
+    name = input("Name : ")
+    age = valid_input("Enter Age: ")
+    grade = input( "Grade : " )
+    return student_id, name, age, grade
+
 # creating list.
-
 student_list= []
-
 print("\n Welcome the SDM!🧐")
 
+
+# Choosing the Function...
 while True:
-    # Choosing the Function...
+    
     print("\n Choose the Option: ")
     print(''' 
         1. Add Student.
@@ -100,12 +115,9 @@ while True:
 
     # Add.
     if function == 1: 
-        print(" Please enter the Details: ")
-        student_id = int(input("ID : "))
-        name = input("Name : ")
-        age = int(input( "Age : "))
-        grade = input( "Grade : " )
-        add_details(student_list, student_id, name, age, grade)
+        print("Please enter the Details: ")
+        student_id, name, age, grade = take_input()
+        add_details(student_list, student_id, name , age, grade)
 
     # View.
     elif function == 2:
@@ -119,10 +131,7 @@ while True:
 
     # Update.
     elif function == 4:
-        student_id = int(input("ID : "))
-        name = input("Name : ")
-        age = int(input( "Age : "))
-        grade = input( "Grade : " )
+        student_id, name, age, grade = take_input()
         print(update_detail(student_list, student_id, name, age, grade))
 
     # Delete.
